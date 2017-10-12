@@ -22,10 +22,11 @@
             var country = $('#countryInput').val();
             if (country.length >= 3) {
 
-                // Show loading for good user experience
+                // Show loading message
                 $("#flagImage").attr("src", "");
                 $("#lbl_countryInfo").html("Loading...");
 
+                // Ajax call to fetch country's name and code
                 $.ajax({
                     type: "GET",
                     url: "https://restcountries.eu/rest/v2/name/" + country,
