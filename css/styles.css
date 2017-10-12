@@ -1,0 +1,14 @@
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+#countryFlag, #countryInfo {
+    margin-top: 20px;
+}
+
+#countryInput {
+    width: 50%;
+    height: 30px;
+    border-radius: 5px;
+}

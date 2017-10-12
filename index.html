@@ -1,0 +1,50 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+
+<h2>Please start typing country's name:</h2>
+<input type="text" id="countryInput"/>
+
+<div id="countryFlag">
+    <img id="flagImage"/>
+</div>
+
+<div id="countryInfo">
+    <label id="lbl_countryInfo" for="countryInfo"></label>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#countryInput').keyup(function (e) {
+            var country = $('#countryInput').val();
+            if (country.length >= 3) {
+
+                // Show loading for good user experience
+                $("#flagImage").attr("src", "");
+                $("#lbl_countryInfo").html("Loading...");
+
+                $.ajax({
+                    type: "GET",
+                    url: "https://restcountries.eu/rest/v2/name/" + country,
+                    success: function (result) {
+                        var countryName = result[0]['name'];
+                        var alpha2Code = result[0]['alpha2Code'].toLowerCase();
+
+                        $("#flagImage").attr("src", "country-flags/png250px/" + alpha2Code + ".png");
+                        $("#lbl_countryInfo").html("This wonderful flag is of: " + countryName.toUpperCase());
+                    },
+                    error: function (err) {
+                        $("#lbl_countryInfo").html("Sorry! No match found");
+                        console.log("error is: " + JSON.stringify(err));
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
